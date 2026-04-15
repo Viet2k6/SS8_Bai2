@@ -1,0 +1,3 @@
+Trong Controller đã có kiểm tra bindingResult.hasErrors() để xử lý khi dữ liệu không hợp lệ, nhưng hệ thống vẫn trả về lỗi 400 Bad Request. Nguyên nhân là do thứ tự tham số trong phương thức bị sai.
+
+BindingResult phải được đặt ngay sau đối tượng có annotation @Valid, nhưng trong đoạn code hiện tại, nó lại được đặt sau Model. Vì vậy, Spring không liên kết được kết quả validate với BindingResult, dẫn đến việc khi validation thất bại, hệ thống sẽ tự động ném ra MethodArgumentNotValidException và trả về lỗi 400 thay vì trả lại trang form.
